@@ -1,0 +1,29 @@
+import calculadora
+import conversor
+import mensajes
+
+
+mensajes.bienvenida()
+
+print("\n--- CALCULADORA ---")
+
+a = float(input("Primer número: "))
+b = float(input("Segundo número: "))
+
+print("Suma:", calculadora.sumar(a, b))
+print("Resta:", calculadora.restar(a, b))
+print("Multiplicación:", calculadora.multiplicar(a, b))
+
+
+print("\n--- CONVERSOR ---")
+
+celsius = float(input("Celsius: "))
+print("Fahrenheit:", conversor.celsius_fahrenheit(celsius))
+
+metros = float(input("Metros: "))
+print("Kilómetros:", conversor.metros_kilometros(metros))
+
+
+print("\nUsuario:", mensajes.nombre)
+
+mensajes.despedida()
