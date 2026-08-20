@@ -1,13 +1,5 @@
-def iniciar_sesion():
-    try:
-        contraseña_correcta = "utc123"
+from login import iniciar_sesion
 
-        contraseña = input("Escribe la contraseña: ")
+print("===== SISTEMA DE LOGIN =====")
 
-        if contraseña == contraseña_correcta:
-            print("Login exitoso")
-        else:
-            print("Contraseña incorrecta")
-
-    except Exception:
-        print("Ocurrió un error")
+iniciar_sesion()
