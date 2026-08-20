@@ -1,0 +1,160 @@
+
+import time
+import os
+
+
+ANCHO = 40
+ALTO = 15
+
+
+VELOCIDAD = 0.3
+
+
+VIVA = "██"
+MUERTA = "  "
+
+
+
+def crear_mundo():
+
+    
+    mundo = []
+
+    for y in range(ALTO):
+        fila = []
+
+        for x in range(ANCHO):
+            fila.append(0)
+
+        mundo.append(fila)
+
+    
+    
+    mundo[7][19] = 1
+    mundo[7][20] = 1
+    mundo[7][21] = 1
+    mundo[6][20] = 1
+    mundo[8][20] = 1
+
+    
+    mundo[3][5] = 1
+    mundo[3][6] = 1
+    mundo[4][5] = 1
+    mundo[4][6] = 1
+
+    return mundo
+
+
+
+def vecinos(mundo, x, y):
+
+    total = 0
+
+    
+    for dy in (-1, 0, 1):
+
+        for dx in (-1, 0, 1):
+
+            
+            if dx == 0 and dy == 0:
+                continue
+
+            
+            nx = (x + dx) % ANCHO
+            ny = (y + dy) % ALTO
+
+            
+            total += mundo[ny][nx]
+
+    return total
+
+
+
+def siguiente_generacion(mundo):
+
+    nuevo = []
+
+    
+    for y in range(ALTO):
+
+        fila = []
+
+        
+        for x in range(ANCHO):
+
+            
+            vivos = vecinos(mundo, x, y)
+
+            
+            if mundo[y][x] == 1:
+
+            
+                if vivos == 2 or vivos == 3:
+                    fila.append(1)
+
+                
+                else:
+                    fila.append(0)
+
+            
+            else:
+
+                
+                if vivos == 3:
+                    fila.append(1)
+
+                else:
+                    fila.append(0)
+
+        nuevo.append(fila)
+
+    return nuevo
+
+
+
+def mostrar(mundo, generacion):
+
+    
+    os.system("cls" if os.name == "nt" else "clear")
+
+    print("AUTOMATA CELULAR - JUEGO DE LA VIDA")
+    print("Generacion:", generacion)
+    print("=" * (ANCHO * 2))
+
+    # Recorremos cada fila
+    for fila in mundo:
+
+        linea = ""
+
+    
+        for celda in fila:
+
+            if celda == 1:
+                linea += VIVA
+            else:
+                linea += MUERTA
+
+        print(linea)
+
+
+
+mundo = crear_mundo()
+
+
+generacion = 0
+
+
+
+while True:
+
+    
+    mostrar(mundo, generacion)
+
+    
+    mundo = siguiente_generacion(mundo)
+
+    # Aumentamos el numero de generacion
+    generacion += 1
+
+    
+    time.sleep(VELOCIDAD)
