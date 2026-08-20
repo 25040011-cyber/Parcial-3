@@ -1,0 +1,19 @@
+import sys
+
+tareas = [
+    "Hacer tarea de Python",
+    "Estudiar para el examen",
+    "Hacer el reporte",
+    "Practicar programación",
+    "Entregar trabajos"
+]
+
+if len(sys.argv) > 1:
+    cantidad = int(sys.argv[1])
+else:
+    cantidad = 5
+
+print("--- MIS TAREAS ---")
+
+for i in range(cantidad):
+    print(i + 1, "-", tareas[i])
