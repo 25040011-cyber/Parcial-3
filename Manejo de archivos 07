@@ -1,0 +1,92 @@
+def crear_archivo():
+    try:
+        with open("estudiantes.txt", "r"):
+            pass
+    except FileNotFoundError:
+        with open("estudiantes.txt", "w") as archivo:
+            archivo.write("Carlos,92\n")
+            archivo.write("Sergio,78\n")
+            archivo.write("Diego,86\n")
+            archivo.write("Sofia,95\n")
+
+
+def mostrar_y_reporte():
+    try:
+        with open("estudiantes.txt", "r") as archivo:
+            lineas = archivo.readlines()
+
+        suma = 0
+        cantidad = 0
+
+        print("\n--- ESTUDIANTES ---")
+
+        for linea in lineas:
+            datos = linea.strip().split(",")
+
+            if len(datos) == 2:
+                nombre = datos[0]
+                calificacion = float(datos[1])
+
+                print(nombre, "-", calificacion)
+
+                suma += calificacion
+                cantidad += 1
+
+        promedio = suma / cantidad
+
+        with open("reporte.txt", "w") as reporte:
+            for linea in lineas:
+                reporte.write(linea)
+
+            reporte.write(f"Promedio general: {promedio:.2f}\n")
+
+        print(f"\nPromedio general: {promedio:.2f}")
+        print("Reporte creado correctamente.")
+
+    except FileNotFoundError:
+        print("No se encontró el archivo.")
+
+    except ValueError:
+        print("Error: hay una calificación con formato incorrecto.")
+
+
+def agregar_estudiante():
+    nombre = input("Nombre del estudiante: ")
+
+    try:
+        calificacion = float(input("Calificación: "))
+
+        if 0 <= calificacion <= 100:
+            with open("estudiantes.txt", "a") as archivo:
+                archivo.write(f"{nombre},{calificacion}\n")
+
+            print("Estudiante agregado correctamente.")
+        else:
+            print("La calificación debe estar entre 0 y 100.")
+
+    except ValueError:
+        print("La calificación debe ser numérica.")
+
+
+crear_archivo()
+
+while True:
+    print("\n===== GESTIÓN DE ESTUDIANTES =====")
+    print("1. Mostrar estudiantes y promedio")
+    print("2. Agregar estudiante")
+    print("3. Salir")
+
+    opcion = input("Selecciona una opción: ")
+
+    if opcion == "1":
+        mostrar_y_reporte()
+
+    elif opcion == "2":
+        agregar_estudiante()
+
+    elif opcion == "3":
+        print("Programa terminado.")
+        break
+
+    else:
+        print("Opción no válida.")
