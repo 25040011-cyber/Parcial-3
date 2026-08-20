@@ -1,0 +1,83 @@
+estudiantes = {
+    "A001": {"nombre": "Sergio Guzman", "edad": 20, "calificaciones": [90, 85, 78]},
+    "A002": {"nombre": "Cuate", "edad": 22, "calificaciones": [88, 91, 79]}
+}
+
+
+def agregar():
+    id = input("ID del estudiante: ").upper()
+
+    if id in estudiantes:
+        print("Ese ID ya existe")
+        return
+
+    nombre = input("Nombre completo: ")
+    edad = int(input("Edad: "))
+
+    calificaciones = []
+    for i in range(3):
+        calificacion = float(input(f"Calificación {i + 1}: "))
+        calificaciones.append(calificacion)
+
+    estudiantes[id] = {
+        "nombre": nombre,
+        "edad": edad,
+        "calificaciones": calificaciones
+    }
+
+    print("Estudiante agregado")
+
+
+def mostrar():
+    for id, datos in estudiantes.items():
+        print(f"\nID: {id}")
+        print(f"Nombre: {datos['nombre']}")
+        print(f"Edad: {datos['edad']}")
+        print(f"Calificaciones: {datos['calificaciones']}")
+
+
+def promedio():
+    id = input("ID del estudiante: ").upper()
+
+    if id in estudiantes:
+        calificaciones = estudiantes[id]["calificaciones"]
+        promedio = sum(calificaciones) / len(calificaciones)
+
+        print(f"Promedio de {estudiantes[id]['nombre']}: {promedio:.1f}")
+    else:
+        print("Estudiante no encontrado")
+
+
+def eliminar():
+    id = input("ID del estudiante: ").upper()
+
+    if id in estudiantes:
+        del estudiantes[id]
+        print("Estudiante eliminado")
+    else:
+        print("Estudiante no encontrado")
+
+
+while True:
+    print("\n--- GESTOR DE ESTUDIANTES ---")
+    print("1. Agregar estudiante")
+    print("2. Mostrar estudiantes")
+    print("3. Calcular promedio")
+    print("4. Eliminar estudiante")
+    print("5. Salir")
+
+    opcion = input("Elige una opción: ")
+
+    if opcion == "1":
+        agregar()
+    elif opcion == "2":
+        mostrar()
+    elif opcion == "3":
+        promedio()
+    elif opcion == "4":
+        eliminar()
+    elif opcion == "5":
+        print("Programa terminado")
+        break
+    else:
+        print("Opción no válida")
